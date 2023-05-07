@@ -90,8 +90,8 @@ class _AccountScreenState extends State<AccountScreen>
                     children: [
                       MyAccountUpdateForm('Name', (value) =>
                       {
-                        accountCtrl.user.name = value!,
-                        print(accountCtrl.user.name),
+                        accountCtrl.user.value.name = value!,
+                        print(accountCtrl.user.value.name),
                       }, widget.animationController,
                           Tween<double>(begin: 0.0, end: 1.0).animate(
                               CurvedAnimation(
@@ -102,8 +102,8 @@ class _AccountScreenState extends State<AccountScreen>
                       ),
                       MyAccountUpdateForm('Gender', (value) =>
                       {
-                        accountCtrl.user.gender = value!,
-                        print(accountCtrl.user.gender),
+                        accountCtrl.user.value.gender = value!,
+                        print(accountCtrl.user.value.gender),
                       }, widget.animationController,
                           Tween<double>(begin: 0.0, end: 1.0).animate(
                               CurvedAnimation(
@@ -114,8 +114,8 @@ class _AccountScreenState extends State<AccountScreen>
                       ),
                       MyAccountUpdateForm('Age', (value) =>
                       {
-                        accountCtrl.user.age = value!,
-                        print(accountCtrl.user.age),
+                        accountCtrl.user.value.age = value!,
+                        print(accountCtrl.user.value.age),
                       }, widget.animationController,
                           Tween<double>(begin: 0.0, end: 1.0).animate(
                               CurvedAnimation(
@@ -126,8 +126,8 @@ class _AccountScreenState extends State<AccountScreen>
                       ),
                       MyAccountUpdateForm('Height', (value) =>
                       {
-                        accountCtrl.user.height = value!,
-                        print(accountCtrl.user.height),
+                        accountCtrl.user.value.height = value!,
+                        print(accountCtrl.user.value.height),
                       }, widget.animationController,
                           Tween<double>(begin: 0.0, end: 1.0).animate(
                               CurvedAnimation(
@@ -138,8 +138,8 @@ class _AccountScreenState extends State<AccountScreen>
                       ),
                       MyAccountUpdateForm('Weight', (value) =>
                       {
-                        accountCtrl.user.weight = value!,
-                        print(accountCtrl.user.weight),
+                        accountCtrl.user.value.weight = value!,
+                        print(accountCtrl.user.value.weight),
                       }, widget.animationController,
                           Tween<double>(begin: 0.0, end: 1.0).animate(
                               CurvedAnimation(
@@ -156,7 +156,7 @@ class _AccountScreenState extends State<AccountScreen>
                           child: ElevatedButton(onPressed: () {
                             accountCtrl.formKey.currentState?.save();
                             // accountCtrl.storeUserDetials();
-                            print(accountCtrl.user.name);
+                            print(accountCtrl.user.value.name);
                             // listViews.add(Obx(()=> Text("${accountCtrl.user.name}")));
                             accountCtrl.update();
                             Get.back();
@@ -239,7 +239,15 @@ class _AccountScreenState extends State<AccountScreen>
       // ),
     );
     listViews.add(
-      Obx (()=> Text("${accountCtrl.user.value.name}"))
+      Column(
+        children: [
+          Obx (()=> Text("${accountCtrl.user.value.name}")),
+          Obx (()=> Text("${accountCtrl.user.value.gender}")),
+          Obx (()=> Text("${accountCtrl.user.value.age}")),
+          Obx (()=> Text("${accountCtrl.user.value.height}")),
+          Obx (()=> Text("${accountCtrl.user.value.weight}")),
+        ],
+      )
     );
 
     listViews.add(
