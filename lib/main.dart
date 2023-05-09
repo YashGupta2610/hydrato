@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:hydrato/controllers/appBar_controller.dart';
 
 import 'controllers/account_controller.dart';
+import 'controllers/myDairy_Controller.dart';
 import 'fitness_app_home_screen.dart';
 import 'fitness_app_theme.dart';
 
@@ -16,6 +17,9 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Get.put(AppBarController());
+  Get.put(BodyMeasurementController());
+  // Get.lazyPut<BodyMeasurementController>(()=>BodyMeasurementController());
+
   Get.put(AccountController());
 
 

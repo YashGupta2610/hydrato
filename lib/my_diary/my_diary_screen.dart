@@ -7,7 +7,8 @@ import 'package:hydrato/fitness_app_theme.dart';
 import 'package:hydrato/my_diary/meals_list_view.dart';
 import 'package:hydrato/my_diary/water_view.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 import '../ui_view/appBar_component.dart';
 
@@ -109,12 +110,18 @@ class _MyDiaryScreenState extends State<MyDiaryScreen>
     listViews.add(
       TitleView(
         titleTxt: 'Body measurement',
-        subTxt: 'Today',
+        subTxt: 'Update',
         animation: Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
             parent: widget.animationController!,
             curve:
                 Interval((1 / count) * 4, 1.0, curve: Curves.fastOutSlowIn))),
-        animationController: widget.animationController!, () {}
+        animationController: widget.animationController!, () {
+          Get.dialog(
+            AlertDialog(
+              content: Text("Update Height and Weight on Account Screen", style: FitnessAppTheme.body1,),
+            )
+          );
+      }
       ),
     );
 
