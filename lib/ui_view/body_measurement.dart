@@ -45,13 +45,14 @@ class BodyMeasurementView extends StatelessWidget {
                 ),
                 child: GetBuilder<BodyMeasurementController>(
                   builder: (ctrl) {
-                    double height = double.parse(ctrl.storage.read("userHeight"));
-                    double weight = double.parse(ctrl.storage.read("userWeight"));
-                    print(weight);
-                    print(height);
-                   var  bmi = (weight / pow(height * 0.3048, 2)).toStringAsFixed(
-                       2);
-                   print(bmi);
+                   //  double height = double.parse(ctrl.storage.read("userHeight"));
+                   //  double weight = double.parse(ctrl.storage.read("userWeight"));
+                   //  print(weight);
+                   //  print(height);
+                   // var  bmi = (weight / pow(height * 0.3048, 2)).toStringAsFixed(
+                   //     2);
+                   // print(bmi);
+
                     return Column(
                       children: <Widget>[
                         Padding(
@@ -227,7 +228,7 @@ class BodyMeasurementView extends StatelessWidget {
                                       crossAxisAlignment: CrossAxisAlignment.center,
                                       children: <Widget>[
                                         Text(
-                                          '${bmi} BMI',
+                                          '${ ctrl.calculateBMI()} BMI',
                                           textAlign: TextAlign.center,
                                           style: TextStyle(
                                             fontFamily: FitnessAppTheme.fontName,
@@ -240,7 +241,7 @@ class BodyMeasurementView extends StatelessWidget {
                                         Padding(
                                           padding: const EdgeInsets.only(top: 6),
                                           child: Text(
-                                            '${ctrl.getResult(bmi)}',
+                                            '${ctrl.getResult(ctrl.calculateBMI())}',
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
                                               fontFamily: FitnessAppTheme.fontName,
@@ -257,41 +258,44 @@ class BodyMeasurementView extends StatelessWidget {
                                 ),
                               ),
                               Expanded(
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: <Widget>[
-                                    Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      crossAxisAlignment: CrossAxisAlignment.end,
-                                      children: <Widget>[
-                                        Text(
-                                          '18.5 to 24.9',
-                                          style: TextStyle(
-                                            fontFamily: FitnessAppTheme.fontName,
-                                            fontWeight: FontWeight.w500,
-                                            fontSize: 16,
-                                            letterSpacing: -0.2,
-                                            color: FitnessAppTheme.darkText,
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.only(top: 6),
-                                          child: Text(
-                                            'Normal BMI Range',
-                                            textAlign: TextAlign.center,
+                                child: SingleChildScrollView(
+                                   scrollDirection: Axis.horizontal,
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: <Widget>[
+                                      Column(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        crossAxisAlignment: CrossAxisAlignment.end,
+                                        children: <Widget>[
+                                          Text(
+                                            '18.5 to 24.9',
                                             style: TextStyle(
                                               fontFamily: FitnessAppTheme.fontName,
-                                              fontWeight: FontWeight.w600,
-                                              fontSize: 12,
-                                              color: FitnessAppTheme.grey
-                                                  .withOpacity(0.5),
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 16,
+                                              letterSpacing: -0.2,
+                                              color: FitnessAppTheme.darkText,
                                             ),
                                           ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
+                                          Padding(
+                                            padding: const EdgeInsets.only(top: 6),
+                                            child: Text(
+                                              'Normal BMI Range',
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                fontFamily: FitnessAppTheme.fontName,
+                                                fontWeight: FontWeight.w600,
+                                                fontSize: 12,
+                                                color: FitnessAppTheme.grey
+                                                    .withOpacity(0.5),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               )
                             ],

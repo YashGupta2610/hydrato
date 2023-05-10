@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 import 'package:hydrato/controllers/appBar_controller.dart';
 
@@ -16,13 +17,11 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await GetStorage.init();
   Get.put(AppBarController());
   Get.put(BodyMeasurementController());
   // Get.lazyPut<BodyMeasurementController>(()=>BodyMeasurementController());
-
   Get.put(AccountController());
-
-
   await SystemChrome.setPreferredOrientations(<DeviceOrientation>[
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown
