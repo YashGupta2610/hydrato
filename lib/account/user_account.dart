@@ -395,13 +395,13 @@ class _AccountScreenState extends State<AccountScreen>
                                   Expanded(child: Text(
                                     " Name", style: FitnessAppTheme.title,)),
 
-                                  Obx(() =>
+
                                       // Text("${accountCtrl.accDetial.read(
                                       //     'userName')}",
                                           Text(
                                             "${accountCtrl.user.value.name}",
                                         style: FitnessAppTheme.display1,
-                                        overflow: TextOverflow.clip,)),
+                                        overflow: TextOverflow.clip,),
                                 ],
                               ),
 

@@ -28,6 +28,7 @@ class AccountController extends GetxController {
   await  accDetial.write("userAge", user.value.age);
   await  accDetial.write("userWeight", user.value.weight);
   await  accDetial.write("userHeight", user.value.height);
+  update();
   }
 
   UserDetails getUserDetails() {
