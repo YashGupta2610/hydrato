@@ -6,38 +6,32 @@ import '../models/user.dart';
 
 class AccountController extends GetxController {
   static AccountController to = Get.find();
-  final Rx accDetial = GetStorage().obs;
+  final  accDetial = GetStorage();
   Rx<UserDetails> user = UserDetails("", '', '', '', '').obs;
 
   final formKey = GlobalKey<FormState>();
 
   Future<void> onInit() async {
-    if (accDetial.value.read('userName') != '') {
-      user.value.name = accDetial.value.read('userName');
-      user.value.height = accDetial.value.read('userHeight');
-      user.value.weight = accDetial.value.read('userWeight');
-      user.value.age = accDetial.value.read('userAge');
-      user.value.gender = accDetial.value.read('userGender');
-    }
-    else {
-      user.value.name = '';
-      user.value.height = '';
-      user.value.weight = '';
-      user.value.age = '';
-      user.value.gender = '';
-    }
+    super.onInit();
+
+      user.value.name =accDetial.read('userName')?? '';
+      user.value.height =accDetial.read('userHeight')?? '0';
+      user.value.weight = accDetial.read('userWeight')?? '0';
+      user.value.age =accDetial.read('userAge')?? '';
+      user.value.gender = accDetial.read('userGender') ?? '';
+
   }
 
-  void storeUserDetials() {
-    accDetial.value.write("userName", user.value.name);
-    accDetial.value.write("userGender", user.value.gender);
-    accDetial.value.write("userAge", user.value.age);
-    accDetial.value.write("userWeight", user.value.weight);
-    accDetial.value.write("userHeight", user.value.height);
+  void storeUserDetials() async {
+  await  accDetial.write("userName", user.value.name);
+  await  accDetial.write("userGender", user.value.gender);
+  await  accDetial.write("userAge", user.value.age);
+  await  accDetial.write("userWeight", user.value.weight);
+  await  accDetial.write("userHeight", user.value.height);
   }
 
   UserDetails getUserDetails() {
-    return accDetial.value.read("userDetails");
+    return accDetial.read("userDetails");
 
   }
 }

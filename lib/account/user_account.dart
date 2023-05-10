@@ -224,7 +224,7 @@ class _AccountScreenState extends State<AccountScreen>
                   child: CircleAvatar(
                     radius: 60,
 
-                    backgroundImage: accountCtrl.accDetial.value.read(
+                    backgroundImage: accountCtrl.accDetial.read(
                         "userGender") == "Male" ?
                     AssetImage(
                       "assets/fitness_app/avatarM.jpg",
@@ -396,8 +396,10 @@ class _AccountScreenState extends State<AccountScreen>
                                     " Name", style: FitnessAppTheme.title,)),
 
                                   Obx(() =>
-                                      Text("${accountCtrl.accDetial.value.read(
-                                          'userName')}",
+                                      // Text("${accountCtrl.accDetial.read(
+                                      //     'userName')}",
+                                          Text(
+                                            "${accountCtrl.user.value.name}",
                                         style: FitnessAppTheme.display1,
                                         overflow: TextOverflow.clip,)),
                                 ],
@@ -416,7 +418,7 @@ class _AccountScreenState extends State<AccountScreen>
                                     .spaceBetween,
                                 crossAxisAlignment: CrossAxisAlignment.end,
                                 children: [
-                                  accountCtrl.accDetial.value.read(
+                                  accountCtrl.accDetial.read(
                                       'userGender') == 'Male'
                                       ? Icon(Icons.male,
                                     color: FitnessAppTheme.nearlyDarkBlue,)
@@ -426,8 +428,10 @@ class _AccountScreenState extends State<AccountScreen>
                                   Expanded(child: Text(
                                     " Gender", style: FitnessAppTheme.title,)),
                                   Obx(() =>
-                                      Text("${accountCtrl.accDetial.value.read(
-                                          'userGender')}",
+                                      // Text("${accountCtrl.accDetial.read(
+                                      //     'userGender')}",
+                                          Text(
+                                            "${accountCtrl.user.value.gender}",
                                         style: FitnessAppTheme.headline,)),
 
                                 ],
@@ -450,8 +454,10 @@ class _AccountScreenState extends State<AccountScreen>
                                   Expanded(child: Text(
                                     " Age", style: FitnessAppTheme.title,)),
                                   Obx(() =>
-                                      Text("${accountCtrl.accDetial.value.read(
-                                          'userAge')}",
+                                      // Text("${accountCtrl.accDetial.read(
+                                      //     'userAge')}",
+                                          Text(
+                                            "${accountCtrl.user.value.age}",
                                         style: FitnessAppTheme.headline,)),
                                   Text(" years", style: FitnessAppTheme.title,),
 
@@ -476,8 +482,9 @@ class _AccountScreenState extends State<AccountScreen>
                                   Expanded(child: Text(
                                     " Height", style: FitnessAppTheme.title,)),
                                   Obx(() =>
-                                      Text("${accountCtrl.accDetial.value.read(
-                                          'userHeight')}",
+                                      // Text("${accountCtrl.accDetial.read(
+                                      //     'userHeight')}",
+                                  Text("${accountCtrl.user.value.height}",
                                         style: FitnessAppTheme.headline,)),
                                   Text(" ft", style: FitnessAppTheme.title,),
 
@@ -504,8 +511,8 @@ class _AccountScreenState extends State<AccountScreen>
                                     " Weight", style: FitnessAppTheme.title,)),
 
                                   Obx(() =>
-                                      Text("${accountCtrl.accDetial.value.read(
-                                          'userWeight')}",
+                                      // Text("${accountCtrl.accDetial.read('userWeight')}",
+                                      Text("${accountCtrl.user.value.weight}",
                                         style: FitnessAppTheme.headline,)),
                                   Text(" kg", style: FitnessAppTheme.title,),
                                 ],
