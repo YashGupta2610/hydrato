@@ -137,12 +137,23 @@ class _MyDiaryScreenState extends State<MyDiaryScreen>
     listViews.add(
       TitleView(
         titleTxt: 'Water',
-        subTxt: 'Aqua SmartBottle',
+        subTxt: 'Reset Goal & Timer',
         animation: Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
             parent: widget.animationController!,
             curve:
                 Interval((1 / count) * 6, 1.0, curve: Curves.fastOutSlowIn))),
-        animationController: widget.animationController!, () {}
+        animationController: widget.animationController!, () {
+          
+          Get.dialog(
+            AlertDialog(
+              content: Container(
+                child: TextFormFeild(
+
+                ),
+              ),
+            )
+          );
+      }
       ),
     );
 
