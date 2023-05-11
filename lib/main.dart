@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
 import 'package:hydrato/controllers/appBar_controller.dart';
+import 'package:hydrato/controllers/water_level_controller.dart';
 
 import 'controllers/account_controller.dart';
 import 'controllers/myDairy_Controller.dart';
@@ -20,6 +21,7 @@ void main() async {
   await GetStorage.init();
   Get.put(AppBarController());
   Get.put(BodyMeasurementController());
+  Get.put(WaterController());
   // Get.lazyPut<BodyMeasurementController>(()=>BodyMeasurementController());
   Get.put(AccountController());
   await SystemChrome.setPreferredOrientations(<DeviceOrientation>[

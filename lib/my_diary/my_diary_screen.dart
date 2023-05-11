@@ -1,4 +1,5 @@
 
+import 'package:hydrato/controllers/water_level_controller.dart';
 import 'package:hydrato/ui_view/body_measurement.dart';
 import 'package:hydrato/ui_view/glass_view.dart';
 import 'package:hydrato/ui_view/mediterranean_diet_view.dart';
@@ -11,6 +12,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
 import '../ui_view/appBar_component.dart';
+import '../ui_view/formFeild_component.dart';
 
 class MyDiaryScreen extends StatefulWidget {
   const MyDiaryScreen({Key? key, this.animationController}) : super(key: key);
@@ -137,12 +139,90 @@ class _MyDiaryScreenState extends State<MyDiaryScreen>
     listViews.add(
       TitleView(
         titleTxt: 'Water',
-        subTxt: 'Aqua SmartBottle',
+        subTxt: 'Reset Goal & Timer',
         animation: Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
             parent: widget.animationController!,
             curve:
                 Interval((1 / count) * 6, 1.0, curve: Curves.fastOutSlowIn))),
-        animationController: widget.animationController!, () {}
+        animationController: widget.animationController!, () {
+
+          Get.dialog(
+            AlertDialog(
+              content: GetBuilder<WaterController>(
+                builder: (waterCtrl) {
+                  return Column(
+                    children: [
+                      FormFieldCustom().MyAccountUpdateForm("Set Goal", (value) =>
+                      {
+                        waterCtrl.waterIntakeDetails.value.goal = value!,
+                        print(waterCtrl.waterIntakeDetails.value.goal),
+                      }, widget.animationController,
+                          Tween<double>(begin: 0.0, end: 1.0).animate(
+                              CurvedAnimation(
+                                  parent: widget.animationController!,
+                                  curve: Interval(
+                                      (1 / count) * 4, 1.0,
+                                      curve: Curves.fastOutSlowIn)))),
+
+                      FormFieldCustom().MyAccountUpdateForm("Set Intake Volume ", (value) =>
+                      {
+                        waterCtrl.waterIntakeDetails.value.waterIntakeLevel = value!,
+                        print(waterCtrl.waterIntakeDetails.value.waterIntakeLevel),
+                      }, widget.animationController,
+                          Tween<double>(begin: 0.0, end: 1.0).animate(
+                              CurvedAnimation(
+                                  parent: widget.animationController!,
+                                  curve: Interval(
+                                      (1 / count) * 4, 1.0,
+                                      curve: Curves.fastOutSlowIn)))),
+
+                      FormFieldCustom().MyAccountUpdateForm(
+                          "Set Bottle Volume ", (value) =>
+                      {
+                        waterCtrl.waterIntakeDetails.value.bottleSize = value!,
+                        print(waterCtrl.waterIntakeDetails.value.bottleSize),
+                      }, widget.animationController,
+                          Tween<double>(begin: 0.0, end: 1.0).animate(
+                              CurvedAnimation(
+                                  parent: widget.animationController!,
+                                  curve: Interval(
+                                      (1 / count) * 4, 1.0,
+                                      curve: Curves.fastOutSlowIn)))),
+
+                      SizedBox(
+                        height: 60,
+                        width: 150,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: ElevatedButton(onPressed: () {
+                            waterCtrl.formKey.currentState?.save();
+                            waterCtrl.storeDetials();
+                            // listViews.add(Obx(()=> Text("${accountCtrl.user.name}")));
+                            waterCtrl.update();
+                            Get.back();
+                          }, child: Text(
+                            "Submit", style: TextStyle(
+                            fontFamily: 'Roboto',
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                            letterSpacing: 0.18,
+                            color: FitnessAppTheme.nearlyWhite,
+                          ),
+                          ),
+                            style: ButtonStyle(
+                                backgroundColor: MaterialStateProperty.all(
+                                    FitnessAppTheme.nearlyDarkBlue)
+                            ),
+                          ),
+                        ),
+                      )
+                    ],
+                  );
+                }
+              )
+            )
+          );
+      }
       ),
     );
 
@@ -201,20 +281,35 @@ class _MyDiaryScreenState extends State<MyDiaryScreen>
         if (!snapshot.hasData) {
           return const SizedBox();
         } else {
-          return ListView.builder(
-            controller: scrollController,
-            padding: EdgeInsets.only(
-              top: AppBar().preferredSize.height +
-                  MediaQuery.of(context).padding.top +
-                  24,
-              bottom: 62 + MediaQuery.of(context).padding.bottom,
-            ),
-            itemCount: listViews.length,
-            scrollDirection: Axis.vertical,
-            itemBuilder: (BuildContext context, int index) {
-              widget.animationController?.forward();
-              return listViews[index];
-            },
+          return Column(
+            children: [
+              Expanded(
+                child: ListView.builder(
+                  controller: scrollController,
+                  padding: EdgeInsets.only(
+                    top: AppBar().preferredSize.height +
+                        MediaQuery.of(context).padding.top +
+                        24,
+                    bottom: 62 + MediaQuery.of(context).padding.bottom,
+                  ),
+                  itemCount: listViews.length,
+                  scrollDirection: Axis.vertical,
+                  itemBuilder: (BuildContext context, int index) {
+                    widget.animationController?.forward();
+                    return listViews[index];
+                  },
+                ),
+              ),
+        //       WaterView(
+        //       mainScreenAnimation: Tween<double>(begin: 0.0, end: 1.0).animate(
+        // CurvedAnimation(
+        // parent: widget.animationController!,
+        // curve: Interval((1 / 8) * 7, 1.0,
+        // curve: Curves.fastOutSlowIn))),
+        // mainScreenAnimationController: widget.animationController!,
+        // ),
+        // ),
+            ],
           );
         }
       },

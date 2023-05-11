@@ -1,4 +1,6 @@
 
+import 'package:get/get_state_manager/src/simple/get_state.dart';
+import 'package:hydrato/controllers/water_level_controller.dart';
 import 'package:hydrato/fitness_app_theme.dart';
 import 'package:hydrato/ui_view/wave_view.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +11,8 @@ class WaterView extends StatefulWidget {
   const WaterView(
       {Key? key, this.mainScreenAnimationController, this.mainScreenAnimation})
       : super(key: key);
+
+
 
   final AnimationController? mainScreenAnimationController;
   final Animation<double>? mainScreenAnimation;
@@ -57,42 +61,61 @@ class _WaterViewState extends State<WaterView> with TickerProviderStateMixin {
                   child: Row(
                     children: <Widget>[
                       Expanded(
-                        child: Column(
-                          children: <Widget>[
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                        child: GetBuilder<WaterController>(
+                          builder: (ctrl) {
+                            return Column(
                               children: <Widget>[
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: <Widget>[
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 4, bottom: 3),
-                                      child: Text(
-                                        '2100',
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                          fontFamily: FitnessAppTheme.fontName,
-                                          fontWeight: FontWeight.w600,
-                                          fontSize: 32,
-                                          color: FitnessAppTheme.nearlyDarkBlue,
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      crossAxisAlignment: CrossAxisAlignment.end,
+                                      children: <Widget>[
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                              left: 4, bottom: 3),
+                                          child: Text(
+                                            '${ctrl.waterConsumed}',
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              fontFamily: FitnessAppTheme.fontName,
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 32,
+                                              color: FitnessAppTheme.nearlyDarkBlue,
+                                            ),
+                                          ),
                                         ),
-                                      ),
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                              left: 8, bottom: 8),
+                                          child: Text(
+                                            'ml',
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              fontFamily: FitnessAppTheme.fontName,
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 18,
+                                              letterSpacing: -0.2,
+                                              color: FitnessAppTheme.nearlyDarkBlue,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                     Padding(
                                       padding: const EdgeInsets.only(
-                                          left: 8, bottom: 8),
+                                          left: 4, top: 2, bottom: 14),
                                       child: Text(
-                                        'ml',
+                                        'of daily goal ${ctrl.store.read('WaterIntakeGoal')}L',
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
                                           fontFamily: FitnessAppTheme.fontName,
                                           fontWeight: FontWeight.w500,
-                                          fontSize: 18,
-                                          letterSpacing: -0.2,
-                                          color: FitnessAppTheme.nearlyDarkBlue,
+                                          fontSize: 14,
+                                          letterSpacing: 0.0,
+                                          color: FitnessAppTheme.darkText,
                                         ),
                                       ),
                                     ),
@@ -100,161 +123,160 @@ class _WaterViewState extends State<WaterView> with TickerProviderStateMixin {
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.only(
-                                      left: 4, top: 2, bottom: 14),
-                                  child: Text(
-                                    'of daily goal 3.5L',
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      fontFamily: FitnessAppTheme.fontName,
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 14,
-                                      letterSpacing: 0.0,
-                                      color: FitnessAppTheme.darkText,
+                                      left: 4, right: 4, top: 8, bottom: 16),
+                                  child: Container(
+                                    height: 2,
+                                    decoration: BoxDecoration(
+                                      color: FitnessAppTheme.background,
+                                      borderRadius: const BorderRadius.all(
+                                          Radius.circular(4.0)),
                                     ),
                                   ),
                                 ),
-                              ],
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(
-                                  left: 4, right: 4, top: 8, bottom: 16),
-                              child: Container(
-                                height: 2,
-                                decoration: BoxDecoration(
-                                  color: FitnessAppTheme.background,
-                                  borderRadius: const BorderRadius.all(
-                                      Radius.circular(4.0)),
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(top: 16),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                children: <Widget>[
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 16),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment: CrossAxisAlignment.end,
                                     children: <Widget>[
-                                      Padding(
-                                        padding: const EdgeInsets.only(left: 4),
-                                        child: Icon(
-                                          Icons.access_time,
-                                          color: FitnessAppTheme.grey
-                                              .withOpacity(0.5),
-                                          size: 16,
-                                        ),
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: <Widget>[
+                                          Padding(
+                                            padding: const EdgeInsets.only(left: 4),
+                                            child: Icon(
+                                              Icons.access_time,
+                                              color: FitnessAppTheme.grey
+                                                  .withOpacity(0.5),
+                                              size: 16,
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding:
+                                                const EdgeInsets.only(left: 4.0),
+                                            child: Text(
+                                              'Last drink ${ctrl.store.read(
+                                                  "WaterLastIntake")}',
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                fontFamily:
+                                                    FitnessAppTheme.fontName,
+                                                fontWeight: FontWeight.w500,
+                                                fontSize: 14,
+                                                letterSpacing: 0.0,
+                                                color: FitnessAppTheme.grey
+                                                    .withOpacity(0.5),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                       Padding(
-                                        padding:
-                                            const EdgeInsets.only(left: 4.0),
-                                        child: Text(
-                                          'Last drink 8:26 AM',
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                            fontFamily:
-                                                FitnessAppTheme.fontName,
-                                            fontWeight: FontWeight.w500,
-                                            fontSize: 14,
-                                            letterSpacing: 0.0,
-                                            color: FitnessAppTheme.grey
-                                                .withOpacity(0.5),
-                                          ),
+                                        padding: const EdgeInsets.only(top: 4),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: <Widget>[
+                                            SizedBox(
+                                              width: 24,
+                                              height: 24,
+                                              child: Image.asset(
+                                                  'assets/fitness_app/bell.png'),
+                                            ),
+                                            Flexible(
+                                              child: Text(
+                                                ctrl.waterLevelInBottleMessage(),
+                                                textAlign: TextAlign.start,
+                                                style: TextStyle(
+                                                  fontFamily:
+                                                      FitnessAppTheme.fontName,
+                                                  fontWeight: FontWeight.w500,
+                                                  fontSize: 12,
+                                                  letterSpacing: 0.0,
+                                                  color: HexColor('#F65283'),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
                                         ),
                                       ),
                                     ],
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(top: 4),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: <Widget>[
-                                        SizedBox(
-                                          width: 24,
-                                          height: 24,
-                                          child: Image.asset(
-                                              'assets/fitness_app/bell.png'),
-                                        ),
-                                        Flexible(
-                                          child: Text(
-                                            'Your bottle is empty, refill it!.',
-                                            textAlign: TextAlign.start,
-                                            style: TextStyle(
-                                              fontFamily:
-                                                  FitnessAppTheme.fontName,
-                                              fontWeight: FontWeight.w500,
-                                              fontSize: 12,
-                                              letterSpacing: 0.0,
-                                              color: HexColor('#F65283'),
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            )
-                          ],
+                                )
+                              ],
+                            );
+                          }
                         ),
                       ),
                       SizedBox(
                         width: 34,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: <Widget>[
-                            Container(
-                              decoration: BoxDecoration(
-                                color: FitnessAppTheme.nearlyWhite,
-                                shape: BoxShape.circle,
-                                boxShadow: <BoxShadow>[
-                                  BoxShadow(
-                                      color: FitnessAppTheme.nearlyDarkBlue
-                                          .withOpacity(0.4),
-                                      offset: const Offset(4.0, 4.0),
-                                      blurRadius: 8.0),
-                                ],
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(6.0),
-                                child: Icon(
-                                  Icons.add,
-                                  color: FitnessAppTheme.nearlyDarkBlue,
-                                  size: 24,
+                        child: GetBuilder<WaterController>(
+                          builder: (ctrl) {
+                            return Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: <Widget>[
+                                Container(
+                                  decoration: BoxDecoration(
+                                    color: FitnessAppTheme.nearlyWhite,
+                                    shape: BoxShape.circle,
+                                    boxShadow: <BoxShadow>[
+                                      BoxShadow(
+                                          color: FitnessAppTheme.nearlyDarkBlue
+                                              .withOpacity(0.4),
+                                          offset: const Offset(4.0, 4.0),
+                                          blurRadius: 8.0),
+                                    ],
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(6.0),
+                                    child: IconButton(
+                                      onPressed: (){
+                                        ctrl.onWaterAdd();
+                                        ctrl.update();
+                                      },
+                                     icon:Icon(Icons.add,
+                                       color: FitnessAppTheme.nearlyDarkBlue,
+                                       size: 24,)
+                                    ),
+                                  ),
                                 ),
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 28,
-                            ),
-                            Container(
-                              decoration: BoxDecoration(
-                                color: FitnessAppTheme.nearlyWhite,
-                                shape: BoxShape.circle,
-                                boxShadow: <BoxShadow>[
-                                  BoxShadow(
-                                      color: FitnessAppTheme.nearlyDarkBlue
-                                          .withOpacity(0.4),
-                                      offset: const Offset(4.0, 4.0),
-                                      blurRadius: 8.0),
-                                ],
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(6.0),
-                                child: Icon(
-                                  Icons.remove,
-                                  color: FitnessAppTheme.nearlyDarkBlue,
-                                  size: 24,
+                                const SizedBox(
+                                  height: 28,
                                 ),
-                              ),
-                            ),
-                          ],
+                                Container(
+                                  decoration: BoxDecoration(
+                                    color: FitnessAppTheme.nearlyWhite,
+                                    shape: BoxShape.circle,
+                                    boxShadow: <BoxShadow>[
+                                      BoxShadow(
+                                          color: FitnessAppTheme.nearlyDarkBlue
+                                              .withOpacity(0.4),
+                                          offset: const Offset(4.0, 4.0),
+                                          blurRadius: 8.0),
+                                    ],
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(6.0),
+                                    child: IconButton(
+
+                            onPressed: (){
+                            ctrl.onWaterRemove();
+                            ctrl.update();
+                            },
+                                     icon: Icon(Icons.remove,
+                                     color: FitnessAppTheme.nearlyDarkBlue,
+                            size: 24,)
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            );
+                          }
                         ),
                       ),
                       Padding(
@@ -277,8 +299,12 @@ class _WaterViewState extends State<WaterView> with TickerProviderStateMixin {
                                   blurRadius: 4),
                             ],
                           ),
-                          child: WaveView(
-                            percentageValue: 80.0,
+                          child: GetBuilder<WaterController>(
+                            builder: (ctrl) {
+                              return WaveView(
+                                percentageValue: ctrl.waterPercentage.value,
+                              );
+                            }
                           ),
                         ),
                       )
