@@ -148,78 +148,93 @@ class _MyDiaryScreenState extends State<MyDiaryScreen>
 
           Get.dialog(
             AlertDialog(
-              content: GetBuilder<WaterController>(
-                builder: (waterCtrl) {
-                  return Column(
-                    children: [
-                      FormFieldCustom().MyAccountUpdateForm("Set Goal", (value) =>
-                      {
-                        waterCtrl.waterIntakeDetails.value.goal = value!,
-                        print(waterCtrl.waterIntakeDetails.value.goal),
-                      }, widget.animationController,
-                          Tween<double>(begin: 0.0, end: 1.0).animate(
-                              CurvedAnimation(
-                                  parent: widget.animationController!,
-                                  curve: Interval(
-                                      (1 / count) * 4, 1.0,
-                                      curve: Curves.fastOutSlowIn)))),
 
-                      FormFieldCustom().MyAccountUpdateForm("Set Intake Volume ", (value) =>
-                      {
-                        waterCtrl.waterIntakeDetails.value.waterIntakeLevel = value!,
-                        print(waterCtrl.waterIntakeDetails.value.waterIntakeLevel),
-                      }, widget.animationController,
-                          Tween<double>(begin: 0.0, end: 1.0).animate(
-                              CurvedAnimation(
-                                  parent: widget.animationController!,
-                                  curve: Interval(
-                                      (1 / count) * 4, 1.0,
-                                      curve: Curves.fastOutSlowIn)))),
+              actions: [
+                IconButton(onPressed: (){Get.back();}, icon:Icon(Icons.cancel, color: FitnessAppTheme.nearlyDarkBlue,))
+              ],
+                content: Container(
+                  // color: Colors.blue[50],
+                  height: 300,
+                  width: MediaQuery
+                      .of(context)
+                      .size
+                      .width * 0.6,
+                  child: GetBuilder<WaterController>(
+                  builder: (waterCtrl) {
+                    return Column(
 
-                      FormFieldCustom().MyAccountUpdateForm(
-                          "Set Bottle Volume ", (value) =>
-                      {
-                        waterCtrl.waterIntakeDetails.value.bottleSize = value!,
-                        print(waterCtrl.waterIntakeDetails.value.bottleSize),
-                      }, widget.animationController,
-                          Tween<double>(begin: 0.0, end: 1.0).animate(
-                              CurvedAnimation(
-                                  parent: widget.animationController!,
-                                  curve: Interval(
-                                      (1 / count) * 4, 1.0,
-                                      curve: Curves.fastOutSlowIn)))),
+                        children: [
+                          SizedBox(height: 10,),
+                          FormFieldCustom().MyAccountUpdateForm("Set Goal", (value) =>
+                          {
+                            waterCtrl.waterIntakeDetails.value.goal = value!,
+                            print(waterCtrl.waterIntakeDetails.value.goal),
+                          }, widget.animationController,
+                              Tween<double>(begin: 0.0, end: 1.0).animate(
+                                  CurvedAnimation(
+                                      parent: widget.animationController!,
+                                      curve: Interval(
+                                          (1 / count) * 4, 1.0,
+                                          curve: Curves.fastOutSlowIn)))),
 
-                      SizedBox(
-                        height: 60,
-                        width: 150,
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: ElevatedButton(onPressed: () {
-                            waterCtrl.formKey.currentState?.save();
-                            waterCtrl.storeDetials();
-                            // listViews.add(Obx(()=> Text("${accountCtrl.user.name}")));
-                            waterCtrl.update();
-                            Get.back();
-                          }, child: Text(
-                            "Submit", style: TextStyle(
-                            fontFamily: 'Roboto',
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16,
-                            letterSpacing: 0.18,
-                            color: FitnessAppTheme.nearlyWhite,
-                          ),
-                          ),
-                            style: ButtonStyle(
-                                backgroundColor: MaterialStateProperty.all(
-                                    FitnessAppTheme.nearlyDarkBlue)
+                          FormFieldCustom().MyAccountUpdateForm("Set Intake Volume ", (value) =>
+                          {
+                            waterCtrl.waterIntakeDetails.value.waterIntakeLevel = value!,
+                            print(waterCtrl.waterIntakeDetails.value.waterIntakeLevel),
+                          }, widget.animationController,
+                              Tween<double>(begin: 0.0, end: 1.0).animate(
+                                  CurvedAnimation(
+                                      parent: widget.animationController!,
+                                      curve: Interval(
+                                          (1 / count) * 4, 1.0,
+                                          curve: Curves.fastOutSlowIn)))),
+
+                          FormFieldCustom().MyAccountUpdateForm(
+                              "Set Bottle Volume ", (value) =>
+                          {
+                            waterCtrl.waterIntakeDetails.value.bottleSize = value!,
+                            print(waterCtrl.waterIntakeDetails.value.bottleSize),
+                          }, widget.animationController,
+                              Tween<double>(begin: 0.0, end: 1.0).animate(
+                                  CurvedAnimation(
+                                      parent: widget.animationController!,
+                                      curve: Interval(
+                                          (1 / count) * 4, 1.0,
+                                          curve: Curves.fastOutSlowIn)))),
+
+                          SizedBox(
+                            height: 60,
+                            width: 150,
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: ElevatedButton(onPressed: () {
+                                waterCtrl.formKey.currentState?.save();
+                                waterCtrl.storeDetials();
+                                // listViews.add(Obx(()=> Text("${accountCtrl.user.name}")));
+                                waterCtrl.update();
+                                Get.back();
+                              }, child: Text(
+                                "Submit", style: TextStyle(
+                                fontFamily: 'Roboto',
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16,
+                                letterSpacing: 0.18,
+                                color: FitnessAppTheme.nearlyWhite,
+                              ),
+                              ),
+                                style: ButtonStyle(
+                                    backgroundColor: MaterialStateProperty.all(
+                                        FitnessAppTheme.nearlyDarkBlue)
+                                ),
+                              ),
                             ),
-                          ),
-                        ),
-                      )
-                    ],
-                  );
-                }
-              )
+                          )
+                        ],
+
+                    );
+                  }
+              ),
+                )
             )
           );
       }

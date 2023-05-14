@@ -14,7 +14,7 @@ class WaterController extends GetxController{
  late Rx<WaterIntakeDetails> waterIntakeDetails =  WaterIntakeDetails('3.5', "150", '1', DateFormat("HH:mm a").format(DateTime.now()), '30', '0').obs;
  final formKey = GlobalKey<FormState>();
  RxDouble waterPercentage = 0.0.obs;
-
+ late int waterBottleSize;
 
 
  Future<void> onInit() async {
@@ -22,7 +22,7 @@ class WaterController extends GetxController{
   await store.writeIfNull("WaterIntake", waterIntakeDetails.value.waterIntakeLevel);
   await store.writeIfNull("WaterBottleSize", waterIntakeDetails.value.bottleSize);
   await store.writeIfNull("WaterLastIntake", waterIntakeDetails.value.lastDrunk);
-
+ waterBottleSize = int.parse(store.read("WaterBottleSize")) ?? 1;
  }
 
 
@@ -39,8 +39,8 @@ class WaterController extends GetxController{
    waterConsumed.value = waterConsumed.value + int.parse('${store.read('WaterIntake')}');
    waterPercentage.value = (waterConsumed / ((double.parse('${store.read("WaterIntakeGoal")}') * 1000))*100).toDouble();
    store.write('WaterLastIntake', DateFormat("HH:mm a").format(DateTime.now()));}
-  if(waterConsumed > store.read('WaterBottleSize')){
-
+  if(waterConsumed.value >= waterBottleSize){
+   waterBottleSize = waterBottleSize + waterBottleSize;
   }
   update();
   // return waterConsumed.value.toString();
@@ -56,7 +56,7 @@ class WaterController extends GetxController{
  }
 
  String waterLevelInBottleMessage(){
- int  waterLeft = (int.parse(store.read('WaterBottleSize'))*1000) - waterConsumed.value;
+ int  waterLeft = (waterBottleSize*1000) - waterConsumed.value;
  int waterIntake = int.parse('${store.read('WaterIntake')}');
  if(waterLeft <= waterIntake*2){
   return 'Your bottle is almost empty, max 2 intakes left';
@@ -70,4 +70,5 @@ class WaterController extends GetxController{
  }
  return 'Good Job Keep Going';
  }
+
 }

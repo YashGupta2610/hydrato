@@ -232,17 +232,14 @@ class _WaterViewState extends State<WaterView> with TickerProviderStateMixin {
                                           blurRadius: 8.0),
                                     ],
                                   ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(6.0),
-                                    child: IconButton(
-                                      onPressed: (){
-                                        ctrl.onWaterAdd();
-                                        ctrl.update();
-                                      },
-                                     icon:Icon(Icons.add,
-                                       color: FitnessAppTheme.nearlyDarkBlue,
-                                       size: 24,)
-                                    ),
+                                  child: IconButton(
+                                    onPressed: (){
+                                      ctrl.onWaterAdd();
+                                      ctrl.update();
+                                    },
+                                   icon:Icon(Icons.add,
+                                     color: FitnessAppTheme.nearlyDarkBlue,
+                                     size: 24,)
                                   ),
                                 ),
                                 const SizedBox(
@@ -260,18 +257,15 @@ class _WaterViewState extends State<WaterView> with TickerProviderStateMixin {
                                           blurRadius: 8.0),
                                     ],
                                   ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(6.0),
-                                    child: IconButton(
+                                  child: IconButton(
 
                             onPressed: (){
                             ctrl.onWaterRemove();
                             ctrl.update();
                             },
-                                     icon: Icon(Icons.remove,
-                                     color: FitnessAppTheme.nearlyDarkBlue,
+                                   icon: Icon(Icons.remove,
+                                   color: FitnessAppTheme.nearlyDarkBlue,
                             size: 24,)
-                                    ),
                                   ),
                                 ),
                               ],
